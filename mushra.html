@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="OlaWod">
+
+    <title>Voice Conversion MOS Page</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="css/clean-blog.css" rel="stylesheet">
+	
+	<link rel="stylesheet" href="./css/fontawesome.all.min.css">
+	
+	<script defer src="./js/fontawesome.all.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+	<!-- Custom scripts for this template -->
+	<script src="js/clean-blog.js"></script>
+	<script src="js/interp.js"></script>
+    <script>
+
+    const rows = [["1", "1", "vc/wav2vec-vc/vctk/237_126133_0024-F_p244_008.wav"], ["1", "2", "vc/vqmivc/vctk/237_126133_0024-F_p244_008.wav"], ["1", "3", "vc/ours/vctk/237_126133_0024-F_p244_008.wav"], ["1", "4", "vc/yourtts/vctk/237_126133_0024-F_p244_008.wav"], ["2", "1", "vc/vqmivc/vctk/260_123440_0009-F_p294_016.wav"], ["2", "2", "vc/yourtts/vctk/260_123440_0009-F_p294_016.wav"], ["2", "3", "vc/wav2vec-vc/vctk/260_123440_0009-F_p294_016.wav"], ["2", "4", "vc/ours/vctk/260_123440_0009-F_p294_016.wav"], ["3", "1", "vc/ours/vctk/2300_131720_0034-M_p278_023.wav"], ["3", "2", "vc/wav2vec-vc/vctk/2300_131720_0034-M_p278_023.wav"], ["3", "3", "vc/yourtts/vctk/2300_131720_0034-M_p278_023.wav"], ["3", "4", "vc/vqmivc/vctk/2300_131720_0034-M_p278_023.wav"], ["4", "1", "vc/vqmivc/vctk/1995_1826_0005-M_p254_023.wav"], ["4", "2", "vc/wav2vec-vc/vctk/1995_1826_0005-M_p254_023.wav"], ["4", "3", "vc/ours/vctk/1995_1826_0005-M_p254_023.wav"], ["4", "4", "vc/yourtts/vctk/1995_1826_0005-M_p254_023.wav"], ["5", "1", "vc/ours/vctk/908_31957_0006-M_p258_228.wav"], ["5", "2", "vc/vqmivc/vctk/908_31957_0006-M_p258_228.wav"], ["5", "3", "vc/wav2vec-vc/vctk/908_31957_0006-M_p258_228.wav"], ["5", "4", "vc/yourtts/vctk/908_31957_0006-M_p258_228.wav"], ["6", "1", "vc/vqmivc/vctk/672_122797_0046-F_p244_008.wav"], ["6", "2", "vc/yourtts/vctk/672_122797_0046-F_p244_008.wav"], ["6", "3", "vc/ours/vctk/672_122797_0046-F_p244_008.wav"], ["6", "4", "vc/wav2vec-vc/vctk/672_122797_0046-F_p244_008.wav"], ["7", "1", "vc/yourtts/vctk/1089_134691_0014-F_p294_016.wav"], ["7", "2", "vc/vqmivc/vctk/1089_134691_0014-F_p294_016.wav"], ["7", "3", "vc/ours/vctk/1089_134691_0014-F_p294_016.wav"], ["7", "4", "vc/wav2vec-vc/vctk/1089_134691_0014-F_p294_016.wav"], ["8", "1", "vc/vqmivc/vctk/1188_133604_0022-F_p257_023.wav"], ["8", "2", "vc/ours/vctk/1188_133604_0022-F_p257_023.wav"], ["8", "3", "vc/yourtts/vctk/1188_133604_0022-F_p257_023.wav"], ["8", "4", "vc/wav2vec-vc/vctk/1188_133604_0022-F_p257_023.wav"], ["9", "1", "vc/yourtts/vctk/61_70968_0053-M_p278_023.wav"], ["9", "2", "vc/ours/vctk/61_70968_0053-M_p278_023.wav"], ["9", "3", "vc/wav2vec-vc/vctk/61_70968_0053-M_p278_023.wav"], ["9", "4", "vc/vqmivc/vctk/61_70968_0053-M_p278_023.wav"], ["10", "1", "vc/wav2vec-vc/vctk/1995_1837_0000-M_p278_023.wav"], ["10", "2", "vc/yourtts/vctk/1995_1837_0000-M_p278_023.wav"], ["10", "3", "vc/ours/vctk/1995_1837_0000-M_p278_023.wav"], ["10", "4", "vc/vqmivc/vctk/1995_1837_0000-M_p278_023.wav"], ["11", "1", "vc/wav2vec-vc/vctk/908_157963_0014-F_p244_008.wav"], ["11", "2", "vc/vqmivc/vctk/908_157963_0014-F_p244_008.wav"], ["11", "3", "vc/yourtts/vctk/908_157963_0014-F_p244_008.wav"], ["11", "4", "vc/ours/vctk/908_157963_0014-F_p244_008.wav"], ["12", "1", "vc/wav2vec-vc/vctk/1580_141083_0025-M_p258_228.wav"], ["12", "2", "vc/ours/vctk/1580_141083_0025-M_p258_228.wav"], ["12", "3", "vc/vqmivc/vctk/1580_141083_0025-M_p258_228.wav"], ["12", "4", "vc/yourtts/vctk/1580_141083_0025-M_p258_228.wav"], ["13", "1", "vc/ours/vctk/61_70968_0006-F_p257_023.wav"], ["13", "2", "vc/wav2vec-vc/vctk/61_70968_0006-F_p257_023.wav"], ["13", "3", "vc/yourtts/vctk/61_70968_0006-F_p257_023.wav"], ["13", "4", "vc/vqmivc/vctk/61_70968_0006-F_p257_023.wav"], ["14", "1", "vc/vqmivc/vctk/260_123286_0022-M_p254_023.wav"], ["14", "2", "vc/wav2vec-vc/vctk/260_123286_0022-M_p254_023.wav"], ["14", "3", "vc/yourtts/vctk/260_123286_0022-M_p254_023.wav"], ["14", "4", "vc/ours/vctk/260_123286_0022-M_p254_023.wav"], ["15", "1", "vc/vqmivc/vctk/1089_134686_0000-F_p257_023.wav"], ["15", "2", "vc/yourtts/vctk/1089_134686_0000-F_p257_023.wav"], ["15", "3", "vc/ours/vctk/1089_134686_0000-F_p257_023.wav"], ["15", "4", "vc/wav2vec-vc/vctk/1089_134686_0000-F_p257_023.wav"]]
+    function myFunction(){
+        console.log("Button clicked!");
+		var res = {};
+		var s = "";
+		var i = 1;
+        $("input[type='radio']:checked").each(function(){
+            var name = $(this).attr('name');
+            var id = $(this).attr('id')
+            var value = $(this).val();
+            res[name]=value;
+			s = s + String(id) + "|" + String(name) + "|" + String(value) + "<br>";
+			i = i + 1;
+        });
+		console.log(res);
+		document.getElementById("result").innerHTML = s;
+        alert("已更新结果");
+	}
+ 
+    function populateAudioGroup() {
+        let num = document.getElementById("audio-group-selector").value;
+        let inner_div = document.createElement("div");
+
+        let utt = num;
+
+        let table = document.createElement("table");
+        table.className = "mdl-data-table";
+
+        let headerRow = table.createTHead().insertRow();
+
+        // Define your headers or use the appropriate values
+        let headers = ["ID ", "Score wav", "MOS Score"];
+
+        headers.forEach((header) => {
+            let th = document.createElement("th");
+            th.scope = "col";
+            th.innerText = header;
+            headerRow.appendChild(th);
+        });
+        console.log(rows);
+
+
+        // 清除先前的音频控件
+        
+        rows.filter(wav => Number(wav[0]) === Number(num)).forEach(wav => {
+            let row = table.insertRow();
+            row.insertCell().innerText = num + '-' + wav[1];  // Assuming id is at index 0
+
+            // Add audio controls for Score Audio
+            let scoreAudioCell = row.insertCell();
+            let scoreAudio = createAudio(wav[2]);
+            scoreAudioCell.appendChild(scoreAudio);
+
+            // Input for Score
+            let scoreInputCell = row.insertCell();
+            let scoreInputContainer = document.createElement("div");
+            scoreInputContainer.style.marginBottom = "10px";  // Set the margin-bottom property to 10 pixels
+
+            let scoreInputLabel = document.createElement("label");
+            scoreInputContainer.appendChild(scoreInputLabel);
+
+            for (let i = 1; i <= 5; i++) {
+            let scoreInput = document.createElement("input");
+            scoreInput.type = "radio";
+            scoreInput.value = i;
+            scoreInput.id = (num-1)*4 + Number(wav[1]);
+            scoreInput.name = wav[2];
+            
+
+            let scoreInputLabel = document.createElement("label");
+            scoreInputLabel.innerHTML = i;
+            scoreInputLabel.setAttribute("for", scoreInput.id);
+
+            scoreInputContainer.appendChild(scoreInput);
+            scoreInputContainer.appendChild(scoreInputLabel);
+            if (i === 1) {
+                scoreInput.checked = true;
+            }
+            }
+
+            scoreInputCell.appendChild(scoreInputContainer);
+        });
+
+      
+        
+        let uttTitle = document.createTextNode("Utterance " + utt);
+        let uttTitleEl = document.createElement("h6");
+        uttTitleEl.appendChild(uttTitle);
+
+        inner_div.appendChild(uttTitleEl);
+        inner_div.appendChild(table);
+
+        
+        var div = document.getElementById("audio-example");
+        div.innerHTML = inner_div.innerHTML;
+
+    }
+
+    function createAudio(utterance) {
+
+        const audio = document.createElement("audio");
+        audio.controls = "controls";
+        audio.preload = "none";
+        audio.src = utterance;
+        audio.innerText = "Your browser does not support the audio element.";
+        return audio;
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        populateAudioGroup();
+    });
+
+
+
+	</script>
+
+    <script>
+		function copyText() {
+		// 获取要复制的文本
+		var textToCopy = document.getElementById("result");
+
+		// 创建一个文本域元素
+		var textarea = document.createElement("textarea");
+
+		// 将要复制的文本设置为文本域的值
+		textarea.value = textToCopy.innerText;
+
+		// 将文本域添加到文档中
+		document.body.appendChild(textarea);
+
+		// 选择文本域中的文本
+		textarea.select();
+
+		// 尝试执行复制操作
+		document.execCommand('copy');
+
+		// 移除文本域元素
+		document.body.removeChild(textarea);
+
+		// 提示用户已复制文本
+		alert("已复制文本: " + textToCopy.innerText);
+		}
+  </script>
+
+</head>
+<body id="page-top">
+
+	<nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+		<div class="container">
+			<a class="navbar-brand js-scroll-trigger" href="#page-top">MOS Test For Voice Conversion</a>
+			<button class="navbar-toggler navbar-toggler-right font-weight-bold text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#MOS-1">具体评分标准</a>
+					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#MOS-2">测试说明</a></li>
+					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#vctk">听音序列</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#result">结果提交</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+    <!-- Page Header -->
+    <header class="masthead" style="background-image: url('img/home-bg.jpg')">
+        <div class="container" style="padding-bottom:10px">
+            <div class="row">
+                <div class="col-lg-10 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>MOS Test For Voice Conversion</h1>
+                        <span class="subheading">
+                            <h3>Thanks for your listening!</h3>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+                <div class="site-heading" id="MOS-1">
+                <h3>具体MOS评分标准</h3>
+                    <table border="1">
+                    <tr>
+                        <th>分数区间</th>
+                        <th>主观感受描述</th>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td><b>Excellent</b> (超好，挑不出瑕疵)</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><b>Good</b> (很好，但总觉得还不够完美)</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td> <b>Fair</b> (不太差但也不太好，可能有点小噪音或者有点糊)</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><b>Poor</b> (很差，但能听清在说啥)</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td><b>Bad </b>(超差，根本听不清在说啥)</td>
+                    </tr>
+                    
+                    </table>
+                </div>
+                <div class="site-heading" id="MOS-2">
+                <h3 style="font-weight: bold;">示例</h3>
+                <p><b>1 - Bad</b> (超差，根本听不清在说啥)</p>
+                            <p>
+                                
+                                    <audio controls preload="none">
+                                        <source src="https://vcmos.oss-cn-shenzhen.aliyuncs.com/mos/1/sys50bf1-utt028ce17.wav">
+                                    </audio>
+                                
+                                    <audio controls preload="none">
+                                        <source src="https://vcmos.oss-cn-shenzhen.aliyuncs.com/mos/1/sys9525c-utta8b7c9d.wav">
+                                    </audio>
+                                
+                            </p>
+                            <p><b>2 - Poor</b> (很差，但能听清在说啥)</p>
+                            <p>
+                                
+                                    <audio controls preload="none">
+                                        <source src="https://vcmos.oss-cn-shenzhen.aliyuncs.com/mos/2/sys4a150-utt7e6ea4e.wav">
+                                    </audio>
+                                
+                                    <audio controls preload="none">
+                                        <source src="https://vcmos.oss-cn-shenzhen.aliyuncs.com/mos/2/sys50bf1-utt6cbfd7d.wav">
+                                    </audio>
+                                
+                            </p>
+                            <p><b>3 - Fair</b> (不太差但也不太好，可能有点小噪音或者有点糊)</p>
+                            <p>
+                                
+                                    <audio controls preload="none">
+                                        <source src="https://vcmos.oss-cn-shenzhen.aliyuncs.com/mos/3/sysdde30-uttc13179a.wav">
+                                    </audio>
+                                
+                                    <audio controls preload="none">
+                                        <source src="https://vcmos.oss-cn-shenzhen.aliyuncs.com/mos/3/sysbce79-uttdbc8f15.wav">
+                                    </audio>
+                                
+                                    <audio controls preload="none">
+                                        <source src="https://vcmos.oss-cn-shenzhen.aliyuncs.com/mos/3/sys50848-utt009c19b.wav">
+                                    </audio>
+                                
+                                    <audio controls preload="none">
+                                        <source src="https://vcmos.oss-cn-shenzhen.aliyuncs.com/mos/3/sysd2ea4-uttd8cf886.wav">
+                                    </audio>
+                                
+                            </p>
+                            <p><b>4 - Good</b> (很好，但总觉得还不够完美)</p>
+                            <p>
+                                
+                                    <audio controls preload="none">
+                                        <source src="https://vcmos.oss-cn-shenzhen.aliyuncs.com/mos/4/sys2a001-utt4feda8b.wav">
+                                    </audio>
+                                
+                                    <audio controls preload="none">
+                                        <source src="https://vcmos.oss-cn-shenzhen.aliyuncs.com/mos/4/sys2a001-utt6850d2c.wav">
+                                    </audio>
+                                
+                                    <audio controls preload="none">
+                                        <source src="https://vcmos.oss-cn-shenzhen.aliyuncs.com/mos/4/sys2a001-uttd470593.wav">
+                                    </audio>
+                                
+                            </p>
+                            <p><b>5 - Excellent</b> (超好，挑不出瑕疵)</p>
+                            <p>
+                                
+                                    <audio controls preload="none">
+                                        <source src="https://vcmos.oss-cn-shenzhen.aliyuncs.com/mos/5/sysf9ead-utt06699b0.wav">
+                                    </audio>
+                                
+                                    <audio controls preload="none">
+                                        <source src="https://vcmos.oss-cn-shenzhen.aliyuncs.com/mos/5/sys8f532-uttb91937f.wav">
+                                    </audio>
+                                
+                            </p>
+                
+                <h3 style="font-weight: bold;">测试说明</h3>
+                <p style="font-style: italic; margin-bottom: 14px;">
+                    MOS：评估转换后语音质量；<br>
+                    SMOS：评估转换后语音的说话人和目标语音的说话人相似性。</p>
+                <p>请在安静环境下，戴上耳机进行听音</p>
+                <p style="font-weight: bold; margin-bottom: 14px;">每次通过下方选项框从1-15组语音中选择一组进行听音测试，测试分数输入为0-5，输入至Score分数框中。每次听完一组测试，点击下方submit按钮，点击后下方会显示听音结果，将该结果复制到<b>mos.txt</b>文件进行保存，每组测试结果依次放在同一个<b>mos.txt</b>文件中。<br>
+                (注：此页面没有 cookie，所以打分的时候别刷新，刷新就得重新打分了) (不过可以按多次 submit，想改答案的话就改了然后再按一次 submit)
+                </p>
+                </div>
+        <div class="row">
+            <div class="post-preview" id="vctk">
+            <h3 class="title">Audio Examples</h3>
+            <label for="audio-group-selector">Select Audio Group:</label>
+            <select id="audio-group-selector" onchange="populateAudioGroup()">
+                
+                    
+                        <option value="1" selected>1</option>
+                    
+                
+                    
+                        <option value="2">2</option>
+                    
+                
+                    
+                        <option value="3">3</option>
+                    
+                
+                    
+                        <option value="4">4</option>
+                    
+                
+                    
+                        <option value="5">5</option>
+                    
+                
+                    
+                        <option value="6">6</option>
+                    
+                
+                    
+                        <option value="7">7</option>
+                    
+                
+                    
+                        <option value="8">8</option>
+                    
+                
+                    
+                        <option value="9">9</option>
+                    
+                
+                    
+                        <option value="10">10</option>
+                    
+                
+                    
+                        <option value="11">11</option>
+                    
+                
+                    
+                        <option value="12">12</option>
+                    
+                
+                    
+                        <option value="13">13</option>
+                    
+                
+                    
+                        <option value="14">14</option>
+                    
+                
+                    
+                        <option value="15">15</option>
+                    
+                
+            </select>
+            </div>
+
+
+
+            <br /><br />
+            <div class="content has-text-justified" id="audio-example">
+
+            <div class="audio-group-content" id="audio-group-content">
+                <!-- This div will be populated with the selected audio group content -->
+            </div>
+
+            
+        </div>
+        <div class="col-lg-14 col-md-12 mx-auto">
+                <hr>
+				<input type="button" value="Submit" onclick="myFunction()">
+                <input type="button" value="Copy" onclick="copyText()">
+				<p id="result">Results:</p>
+				
+				
+				<hr>
+
+        </div>
+
+    </div>
+                
+				
+
+
+</body>
+
+</html>
